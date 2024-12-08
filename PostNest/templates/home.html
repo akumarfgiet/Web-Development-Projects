@@ -1,0 +1,57 @@
+{% extends "base_file.html" %}
+{% block title %}Home{% endblock %}
+{% if current_user.is_authenticated %}
+{% block navbar %}
+    <li><a href="/home" class="active">Home</a></li>
+    <li><a href="/posts">Add Post</a></li>
+    <li><a href="/connect">Connect</a></li>
+    <li class="dropdown">Welcome, {{current_user.Name}} <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+      <ul>
+        <li><a href="/myprofile">My Profile</a></li>
+        <li><a href="/myposts">My Posts</a></li>
+        <li><a href="/logout">Log Out</a></li>
+      </ul>
+    </li>
+{% endblock %}
+{% block body %}
+  <style>
+    .post-image {
+      width: 300px; /* Fixed width for the square */
+      height: 300px; /* Fixed height for the square */
+      object-fit: cover; /* Ensures the image fills the square without distortion */
+      border-radius: 10px; /* Optional: rounded corners for aesthetics */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a polished look */
+  }
+  </style>
+   {% include "messages.html" %}
+      <br><center><h1>Discover the Latest Posts</h1></center><br><br>
+        {% for d in data %}
+          <div class="container">
+            <div class="row gy-4 align-items-center features-item">
+              <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+                <img src="{{ d.Image }}" class="img-fluid post-image" alt="Uploaded Image">
+              </div>
+              <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+                <h3>{{d.Title}}</h3>
+                  <p class="fst-italic">{{d.Descrip}}</p>
+                <ul>
+                  <li><span><strong> Uploaded on: </strong>{{d.Date}}</span></li>
+                  <li><span><strong> Uploaded by: </strong>{{d.user.Name}}</span></li>
+                  <li><span><strong> Liked By: </strong>{{d.Likes}}</span>
+                  <span><strong>  Total Comments: </strong>{{d.Comments}}</span></li>
+                  <form action="/like/{{d.Post_ID}}/{{current_user.User_ID}}" method="POST">
+                    <li><button type="submit" class="btn btn-success"><i class="fa-regular fa-heart"></i></button></li>
+                  </form>
+                  <li><a href="/comments/{{d.Post_ID}}" class="btn btn-info"><i class="fa-regular fa-comment"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>  
+          <br><br>      
+        {% endfor %}
+        <div class="row gy-4 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+          <center><h1>No More Posts to Display</h1></center><br><br>
+        </div>
+        <hr>
+{% endblock %}
+{% endif %}

@@ -1,0 +1,29 @@
+{% extends "base_file.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block navbar %}
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+    <li><a href="/login">Login</a></li>
+{% endblock %}
+{% block body %}
+    <br><br><center><h1>Join PostNest! Connect, Share, and Explore</h1></center><br><br>
+    <form action='/signup' method='POST'>
+        <div class="row">
+            <div class="d-grid col-6 mx-auto">
+                <label for="exampleFormControlInput1" class="form-label">Enter your name</label>
+                <input type="text" class="form-control" placeholder="Full Name" name="name" required>
+                <br>
+                <label for="exampleFormControlInput1" class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                <br>
+                <label for="inputPassword5" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <div id="passwordHelpBlock" class="form-text">
+                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                </div>     
+                <br>
+                <button type="submit" class="btn btn-success">SIGN UP</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

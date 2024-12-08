@@ -1,0 +1,24 @@
+{% extends "base_file.html" %}
+{% block title %}LOGIN{% endblock %}
+{% block navbar %}
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+    <li><a href="/login">Login</a></li>
+{% endblock %}
+{% block body %}
+{% include "messages.html"%}
+    <br><br><center><h1>Welcome Back! Log in to Connect and Share</h1></center><br><br>
+    <form action='/login' method='POST'>
+        <div class="row">
+            <div class="d-grid col-6 mx-auto">
+                <label for="exampleFormControlInput1" class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                <br>
+                <label for="inputPassword5" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <br>
+                <button type="submit" class="btn btn-success">LOGIN</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base_file.html" %}
+{% block title %}Comments{% endblock %}
+{% if current_user.is_authenticated %}
+{% block navbar %}
+  <li><a href="/home" class="active">Home</a></li>
+  <li><a href="/posts">Add Post</a></li>
+  <li><a href="/connect">Connect</a></li>
+  <li class="dropdown">Welcome, {{current_user.Name}} <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+      <ul>
+          <li><a href="/myprofile">My Profile</a></li>
+          <li><a href="/myposts">My Posts</a></li>
+          <li><a href="/logout">Log Out</a></li>
+      </ul>
+  </li>
+{% endblock %}
+{% block body %}
+  <br>
+  {% include "messages.html" %}
+  <center><h1>See What Others Are Saying</h1></center><br>
+  <div class="row">
+    <div class="d-grid col-6 mx-auto">
+    <strong>Total Comments = {{count}}</strong><br>
+    <form action="/comment/{{post_id}}/{{current_user.User_ID}}" method="POST">
+        <input type="hidden" value="{{post_id}}" name="post_id">
+        <input type="hidden" value="{{current_user.Name}}" class="form-control" placeholder="Commented By" name="commented_by">
+        <input type="hidden" value="{{data.Name}}" class="form-control" placeholder="Commented On" name="commented_on">
+        <div class="form-floating">
+            <textarea class="form-control" name="comment" style="height: 100px" required></textarea>
+            <label for="floatingTextarea2">Leave a comment here</label>
+        </div>
+        <br>
+        <center><button type="submit" class="btn btn-success">Comment</button></center>
+    </form>
+    {% for d in data %}
+    <div class="container">
+        <div class="row gy-4 align-items-center features-item">
+            <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+                <ul>
+                    <li><strong>{{ d.user.Name }}:</strong> {{ d.comment }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+{% endif %}
