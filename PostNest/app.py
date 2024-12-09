@@ -9,6 +9,7 @@ from flask_login import current_user
 import boto3
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+from werkzeug.serving import run_simple
 
 load_dotenv()
 
@@ -338,3 +339,6 @@ def logout():
     logout_user()
     flash("Successfully Logged Out.",'success')
     return redirect(url_for("login"))
+
+if __name__ == "__main__":
+    run_simple('0.0.0.0', int(os.getenv('PORT', 5000)), app)
